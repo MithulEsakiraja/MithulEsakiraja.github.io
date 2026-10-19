@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<title>2026 Deep Run CIT Hackathon | The Panthers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./images/citlogo.png" type="image/png" sizes="any">
+</head>
+<body>
+    <section id="section-1">
+        <!-- Top Text Content -->
+        <div class="body-container">
+            <div class="child-container">
+                <!-- CIT Logo -->
+                <a href="./index.html" class="logo-parent">
+                    <img src="./images/citlogo.png" alt="CIT Logo" class="cit-logo">
+                </a>
+                <div class="header">
+                    <div class="heading-1"
+                        <h1>2026 Deep Run CIT Hackathon</h1>
+                    </div>
+                    <div class="panthers-subheading">
+                        <h2>The Panthers</h2>
+                    </div>
+                    <div class="problem-subheading">
+                        <h2>Problem #1</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div clas="button-1">
+            <button id="TranslatePage" onclick="goTo('TranslatePage')">Go to Translation Page</button>
+        </div>
+    </section>
+    <!-- Top Text Content -->
+    <div class="main-list-input-content">
+        <div class="list-container-parent">
+            <button class="button-redirection-1">
+                <a href-"./pages/translate.html" class="button-redirection-1">Translate</a>
+            </button>
+        </div>
+    </div>
+    <!-- Form Container for Language Inputs (Text) -->
+    <form class="form-container">
+        <label for="name">Original Language</label>
+        <input type="text" id="LangInput" name="name">
+            <button id="AddLang" onclick="AddLang1()">Add Language 1</button>
+            <button id="AddLang" onclick="AddLang2()">Add Language 2</button>
+            <button id="AddLang" onclick="AddLang3()">Add Language 3</button>
+            <button id="AddLang" onclick="AddLang4()">Add Language 4</button>
+            <button id="AddLang" onclick="AddLang5()">Add Language 5</button>
+            <!-- Dropdown Menu for Language Selections (Dropdown) -->
+            <label for="lang">Language</label>
+            <select id="lang" name="language">
+                <option id="Null">-|Select A Language|-</option>
+                <option id="Lang1"></option>
+                <option id="Lang2"></option>
+                <option id="Lang3" ></option>
+                <option id="Lang4"></option>
+                <option id="Lang5"></option>
+            </select>
+    
+        <label for="lang">Language</label>
+        <input type="text" id="lang" name="language">
+
+        <button type="submit">Submit</button>
+    </form>
+    
+    <section id="TranslatePage">
+
+    </section>
+    <!-- JS Link -->
+    <script src="script.js"></script>
+</body>
+</html>

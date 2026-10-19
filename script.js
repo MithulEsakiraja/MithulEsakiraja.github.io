@@ -11,7 +11,6 @@ function initializeLanguageList() {
         if (!value) return;
 
         list.add(new Option(value, value));
-        document.createElement("option").text = langinput.value;
         langinput.value = "";
     };
 

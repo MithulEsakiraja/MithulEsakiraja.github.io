@@ -42,7 +42,7 @@ body {
 .heading-1 {
     display: flex;
     justify-content: flex-start;
-    font-size: 600px;
+    font-size: 30px;
     font-weight: 500;
 }
 

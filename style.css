@@ -18,3 +18,12 @@ html, body {
     justify-content: flex-start;
 }
 
+.heading-1 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.button-1 {
+    display: flex;
+    
+}

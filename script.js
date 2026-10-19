@@ -1,12 +1,25 @@
-const add = document.getElementById("submit");
-const list = document.getElementById("list");
-const langinput = document.getElementById("LangInput");
+function initializeLanguageList() {
+    const add = document.getElementById("submit");
+    const list = document.getElementById("list");
+    const langinput = document.getElementById("LangInput");
 
-add.addEventListener("click", (event) => {
-    event.preventDefault();
-    const value = langinput.value.trim();
-    if (!value) return;
+    if (!add || !list || !langinput) return;
 
-    list.add(new Option(value, value));
-    langinput.value = "";
-});
+    const addLanguage = (event) => {
+        event.preventDefault();
+        const value = langinput.value.trim();
+        if (!value) return;
+
+        list.add(new Option(value, value));
+        langinput.value = "";
+    };
+
+    add.addEventListener("click", addLanguage);
+    add.form?.addEventListener("submit", addLanguage);
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeLanguageList, { once: true });
+} else {
+    initializeLanguageList();
+}

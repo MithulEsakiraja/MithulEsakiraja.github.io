@@ -58,6 +58,7 @@ body {
     color: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
 .translate-button:hover {
@@ -65,5 +66,5 @@ body {
 }
 
 .translate-button:active {
-    transform: scale(0.9);
+    transform: scale(0.98);
 }

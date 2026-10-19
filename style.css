@@ -25,5 +25,17 @@ html, body {
 
 .button-1 {
     display: flex;
-    
+    justify-content: flex-start;
+}
+
+#TranslatePage {
+    padding: 5px 10px;
+    border: 2px solid #b58757;
+    color: antiquewhite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#TranslatePage:hover {
+    background-color: bisque;
 }

@@ -1,4 +1,4 @@
-const add = getElementById("add");
+const add = getElementById("sumbit");
 const list = getElementById("list")
 const langinput = getElementById("LangInput");
 add.addEventListener('click', (event)=>{
@@ -6,5 +6,5 @@ add.addEventListener('click', (event)=>{
     const liText = document.createTextNode(langinput.value);
     li.appendChild(liText)
     list.appendChild(li);
-    langinput.value;
+    langinput.value = "";
 })

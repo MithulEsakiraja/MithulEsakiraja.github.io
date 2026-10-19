@@ -1,62 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <title>2026 Deep Run CIT Hackathon | The Panthers</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="https://cmsv2-assets.apptegy.net/uploads/16074/logo/17596/image__30_.png" type="image/png" sizes="any">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangLate Dictionary</title>
+<style>
+body {
+max-width: 760px;
+margin: 40px auto;
+padding: 0 20px;
+background: #fff;
+color: #222;
+font-family: Arial, sans-serif;
+line-height: 1.5;
+}
+
+
+h1,
+h2 {
+color: #111;
+}
+
+
+form,
+.language-controls {
+display: grid;
+gap: 12px;
+}
+
+
+label {
+display: block;
+margin-bottom: 4px;
+font-weight: 600;
+}
+
+
+input,
+select,
+button {
+min-height: 40px;
+padding: 8px 10px;
+font: inherit;
+}
+
+
+.language-controls {
+grid-template-columns: 1fr auto;
+align-items: end;
+margin: 20px 0;
+}
+
+
+.untranslated-fields {
+display: grid;
+grid-template-columns: minmax(130px, .7fr) minmax(0, 1.3fr);
+gap: 10px;
+}
+
+
+.word-pair {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+padding: 12px 0;
+border-bottom: 1px solid #ddd;
+}
+
+
+.word-pair p {
+margin: 0;
+overflow-wrap: anywhere;
+}
+
+
+.status {
+min-height: 1.5em;
+}
+
+
+@media (max-width: 520px) {
+body {
+margin-top: 24px;
+}
+
+
+.language-controls {
+grid-template-columns: 1fr;
+}
+
+
+.untranslated-fields {
+grid-template-columns: 1fr;
+}
+
+
+.word-pair {
+align-items: flex-start;
+}
+}
+</style>
 </head>
 <body>
-    <!-- div 1 -->
-    <div id="div-1">
-        <!-- Top Text Content -->
-        <div class="body-container">
-            <div class="child-container">
-                <div class="navbar">
-                    <!-- CIT Logo -->
-                    <a href="./index.html" class="logo-parent">
-                        <img src="https://cmsv2-assets.apptegy.net/uploads/16074/logo/17596/image__30_.png" alt="CIT Logo" class="cit-logo" height="60" width="60">
-                    </a>
-                    <!-- Heading -->
-                    <div class="heading-1">
-                       <h1>2026 Deep Run CIT Hackathon</h1>
-                    </div>
-                </div>
-                <!-- Lang Late Text -->
-                <div class="lang-late-text">
-                    <img src="https://blog.flamingtext.com/blog/2026/10/19/flamingtext_com_1792446053_528741081.png" border="0" alt="Logo Design by FlamingText.com" title="Logo Design by FlamingText.com">
-                </div>
-                <div class="button-1">
-                    <button class="translate-button" id="TranslatePage" onclick="goTo('div-2')">Go to Translation Page</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- div 2 -->
-    <div id="div-2">
-        <!-- Form Container for Language Inputs (Text) -->
-        <form class="form-container">
-            <label for="name">Original Language</label>
-            <label for="lang">Language</label>
-            <label for="lang">Language</label>
-            <input type="text" id="LangInput" name="language">
-            <button type="button" id="submit" onclick="initializeLanguageList()">Submit</button>
-        </form>
-    </div>
-    <!-- div 3 -->
-    <div id="div-3">
-        <select name="name" id="lang">
-            <option value="">Name three things ten seconds ago</option>
-        </select>
-        <input type="text" id="Word" name="langaa">
-        <button type="button" id="submitWord" onclick="addWord1()">Submit</button>
-        <ul id="wordList"></ul>
-    </div>
-    <!-- JS Link -->
-    <script src="script.js"></script>
+<main>
+<h1>LangLate Dictionary</h1>
+<p>Add a language, enter an untranslated word and its match, then save the pair.</p>
+
+
+<section aria-labelledby="language-heading">
+<h2 id="language-heading">Add a language</h2>
+<div class="language-controls">
+<div>
+<label for="newLanguage">Language name</label>
+<input id="newLanguage" type="text" placeholder="e.g. Spanish" autocomplete="off">
+</div>
+<button id="addLanguageButton" type="button">Add language</button>
+</div>
+</section>
+
+
+<section aria-labelledby="entry-heading">
+<h2 id="entry-heading">Add a word pair</h2>
+<form id="entryForm">
+<div>
+<label for="originalWord">Untranslated word</label>
+<div class="untranslated-fields">
+<select id="originalLanguage" name="originalLanguage" aria-label="Language for untranslated word" required>
+<option value="">Choose a language</option>
+</select>
+<input id="originalWord" name="originalWord" type="text" placeholder="Enter the word" autocomplete="off" required>
+</div>
+</div>
+<div>
+<label for="matchedWord">Matched word</label>
+<input id="matchedWord" name="matchedWord" type="text" autocomplete="off" required>
+</div>
+<button type="submit">Save word pair</button>
+</form>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+</section>
+
+
+<section aria-labelledby="dictionary-heading">
+<h2 id="dictionary-heading">Saved pairs</h2>
+<ul id="entries" aria-live="polite"></ul>
+</section>
+</main>
+<script src="./script.js"></script>
 </body>
 </html>
+
+

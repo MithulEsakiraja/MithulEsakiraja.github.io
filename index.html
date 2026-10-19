@@ -16,18 +16,19 @@
         <!-- Top Text Content -->
         <div class="body-container">
             <div class="child-container">
-                <!-- CIT Logo -->
-                <a href="./index.html" class="logo-parent">
-                    <img src="https://cmsv2-assets.apptegy.net/uploads/16074/logo/17596/image__30_.png" alt="CIT Logo" class="cit-logo" height="80" width="80">
-                </a>
-                <!-- Lang Late Text -->
-                <div class="lang-late-text">
-                    <img src="https://blog.flamingtext.com/blog/2026/10/19/flamingtext_com_1792446053_528741081.png" border="0" alt="Logo Design by FlamingText.com" title="Logo Design by FlamingText.com">
-                </div>
-                <div class="header"><br>
+                <div class="navbar">
+                    <!-- CIT Logo -->
+                    <a href="./index.html" class="logo-parent">
+                        <img src="https://cmsv2-assets.apptegy.net/uploads/16074/logo/17596/image__30_.png" alt="CIT Logo" class="cit-logo" height="60" width="60">
+                    </a>
+                    <!-- Heading -->
                     <div class="heading-1">
                        <h1>2026 Deep Run CIT Hackathon</h1>
                     </div>
+                </div>
+                <!-- Lang Late Text -->
+                <div class="lang-late-text">
+                    <img src="https://blog.flamingtext.com/blog/2026/10/19/flamingtext_com_1792446053_528741081.png" border="0" alt="Logo Design by FlamingText.com" title="Logo Design by FlamingText.com">
                 </div>
                 <div class="button-1">
                     <button class="translate-button" id="TranslatePage" onclick="goTo('section-2')">Go to Translation Page</button>
@@ -40,19 +41,14 @@
         <!-- Form Container for Language Inputs (Text) -->
         <form class="form-container">
             <label for="name">Original Language</label>
-                <button id="AddLang" onclick="AddLang1()">Add Language 1</button>
-                <button id="AddLang" onclick="AddLang2()">Add Language 2</button>
-                <button id="AddLang" onclick="AddLang3()">Add Language 3</button>
-                <button id="AddLang" onclick="AddLang4()">Add Language 4</button>
-                <button id="AddLang" onclick="AddLang5()">Add Language 5</button>
-                <!-- Dropdown Menu for Language Selections (Dropdown) -->
+          
                 <label for="lang">Language</label>
-                <select name="name" id="list">
+                <select name="name" id="lang">
                     <option value="">Name three things ten seconds ago</option>
                 </select>
             <label for="lang">Language</label>
             <input type="text" id="LangInput" name="language">
-            <button type="submit" onclick="initializeLanguageList()">Submit</button>
+            <button id="submit" onclick="initializeLanguageList()">Submit</button>
         </form>
     </section>
     <!-- Section 3 -->

@@ -20,29 +20,30 @@ function initializeLanguageList() {
 
 function addWord1() {
     const wordInput = document.getElementById("Word");
+    const wordList = document.getElementById("wordList");
+    if (!wordInput || !wordList) return;
+
     const wordValue = wordInput.value.trim();
     if (!wordValue) return;
-    
-    const addWord = (event) => {
-        event.preventDefault();
-        const value1 = wordInput.value.trim();
-        if (!value1) return;
 
-        const wordList = document.getElementById("wordList");
-        const listItem = document.createElement("li");
-        listItem.textContent = value1;
-        wordList.appendChild(listItem);
+    const listItem = document.createElement("li");
+    listItem.textContent = wordValue;
+    wordList.appendChild(listItem);
+    wordInput.value = "";
+}
 
-        wordInput.value = "";
-    };
-
-    add.addEventListener("click", addLanguage);
-    add.form?.addEventListener("submit", addLanguage);
-    
+function initializeWordList() {
+    const wordInput = document.getElementById("Word");
+    const wordForm = wordInput?.closest("form");
+    wordForm?.addEventListener("submit", addWord1);
 }
 
 if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeLanguageList, { once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+        initializeLanguageList();
+        initializeWordList();
+    }, { once: true });
 } else {
     initializeLanguageList();
+    initializeWordList();
 }

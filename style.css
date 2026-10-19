@@ -28,6 +28,12 @@ body {
     background-color: #beeef9;
 }
 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
 .body-container {
     display: flex;
     justify-content: flex-start;
@@ -36,6 +42,8 @@ body {
 .heading-1 {
     display: flex;
     justify-content: flex-start;
+    font-size: 600px;
+    font-weight: 500;
 }
 
 .button-1 {

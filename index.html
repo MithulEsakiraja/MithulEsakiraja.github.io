@@ -39,23 +39,23 @@
     <!-- Section 2 -->
     <section id="section-2">
         <!-- Form Container for Language Inputs (Text) -->
-        <div class="form-container">
+        <form class="form-container">
             <label for="name">Original Language</label>
-            <select name="name" id="lang">
-                <option value="">Name three things ten seconds ago</option>
-            </select>
             <label for="lang">Language</label>
-            <input type="text" id="Word" name="langaa">
             <label for="lang">Language</label>
             <input type="text" id="LangInput" name="language">
-            <button type="button" id="submitWord" onclick="addWord1()">Submit</button>
             <button type="button" id="submit" onclick="initializeLanguageList()">Submit</button>
             <button class="translate-button" id="TranslatePage" onclick="goTo('section-3')">Go to Translation Page</button>
-        </div>
+        </form>
     </section>
     <!-- Section 3 -->
     <section id="section-3">
-         
+        <select name="name" id="lang">
+                <option value="">Name three things ten seconds ago</option>
+        </select>
+        <input type="text" id="Word" name="langaa">
+        <button type="button" id="submitWord" onclick="addWord1()">Submit</button>
+        <ul id="wordList"></ul>
     </section>
     <!-- JS Link -->
     <script src="script.js"></script>

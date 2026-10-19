@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangLate Dictionary</title>
+    <style>
+        body {
+            background: #fff;
+            color: #222;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+
+        h1,
+        h2 {
+            color: #111;
+        }
+
+
+        form,
+        .language-controls {
+            display: grid;
+            gap: 12px;
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+
+        input,
+        select,
+        button {
+            min-height: 40px;
+            padding: 8px 10px;
+            font: inherit;
+        }
+
+
+        .language-controls {
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            margin: 20px 0;
+        }
+
+
+        .untranslated-fields {
+            display: grid;
+            grid-template-columns: minmax(130px, .7fr) minmax(0, 1.3fr);
+            gap: 10px;
+        }
+
+
+        .word-pair {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+
+        .word-pair p {
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+
+        .status {
+            min-height: 1.5em;
+        }
+
+
+        #languageStatus {
+            min-height: 1.5em;
+            margin: 0;
+        }
+
+
+        @media (max-width: 520px) {
+            body {
+                margin-top: 24px;
+            }
+
+
+            .language-controls {
+                grid-template-columns: 1fr;
+            }
+
+
+            .untranslated-fields {
+                grid-template-columns: 1fr;
+            }
+
+
+            .word-pair {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>LangLate Dictionary</h1>
+        <p>Add a language, enter an untranslated word and its match, then save the pair.</p>
+
+
+        <section aria-labelledby="language-heading">
+            <h2 id="language-heading">Add a language</h2>
+            <div class="language-controls">
+                <div>
+                    <label for="newLanguage">Language name</label>
+                    <input id="newLanguage" type="text" placeholder="e.g. Spanish" autocomplete="off">
+                </div>
+                <button id="addLanguageButton" type="button">Add language</button>
+            </div>
+            <p id="languageStatus" class="status" role="status" aria-live="polite"></p>
+        </section>
+
+
+        <section aria-labelledby="entry-heading">
+            <h2 id="entry-heading">Add a word pair</h2>
+            <form id="entryForm" novalidate>
+                <div>
+                    <label for="originalWord">Untranslated word</label>
+                    <div class="untranslated-fields">
+                        <select id="originalLanguage" name="originalLanguage" aria-label="Language for untranslated word" required>
+                            <option value="">Choose a language</option>
+                            <option value="Spanish">Spanish</option>
+                        </select>
+                        <input id="originalWord" name="originalWord" type="text" placeholder="Enter the word" autocomplete="off" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="matchedWord">Matched word</label>
+                    <input id="matchedWord" name="matchedWord" type="text" autocomplete="off" required>
+                </div>
+                <button type="submit">Save word pair</button>
+            </form>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+        </section>
+
+
+        <section aria-labelledby="dictionary-heading">
+            <h2 id="dictionary-heading">Saved pairs</h2>
+            <ul id="entries" aria-live="polite"></ul>
+        </section>
+    </main>
+    <script>
+        "use strict";
+
+
+        const languageSelect = document.querySelector("#originalLanguage");
+        const languageInput = document.querySelector("#newLanguage");
+        const languageStatus = document.querySelector("#languageStatus");
+        const entryForm = document.querySelector("#entryForm");
+        const entryStatus = document.querySelector("#status");
+        const entriesList = document.querySelector("#entries");
+        const languagesKey = "langlate.languages.v2";
+        const entriesKey = "langlate.entries";
+        let languages = Array.from(languageSelect.options)
+            .filter(option => option.value)
+            .map(option => option.value);
+        let entries = [];
+
+
+        function readSavedList(key) {
+            try {
+                const value = JSON.parse(localStorage.getItem(key) || "[]");
+                return Array.isArray(value) ? value : [];
+            } catch (error) {
+                console.error(`Could not read saved data for ${key}.`, error);
+                return [];
+            }
+        }
+
+
+        function saveList(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (error) {
+                console.error(`Could not save data for ${key}.`, error);
+                return false;
+            }
+        }
+
+
+        function renderEntries() {
+            entriesList.replaceChildren();
+            entries.forEach((entry, index) => {
+                const item = document.createElement("li");
+                item.className = "word-pair";
+
+
+                const words = document.createElement("p");
+                words.textContent = `${entry.language}: ${entry.originalWord} => ${entry.matchedWord}`;
+
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.textContent = "Remove";
+                removeButton.addEventListener("click", () => {
+                    entries.splice(index, 1);
+                    saveList(entriesKey, entries);
+                    renderEntries();
+                    entryStatus.textContent = "Pair removed.";
+                });
+
+
+                item.append(words, removeButton);
+                entriesList.append(item);
+            });
+        }
+
+
+        languages = readSavedList(languagesKey).filter(language =>
+            typeof language === "string" && language.trim()
+        );
+        entries = readSavedList(entriesKey).filter(entry =>
+            entry &&
+            typeof entry.language === "string" &&
+            typeof entry.originalWord === "string" &&
+            typeof entry.matchedWord === "string"
+        );
+
+
+        for (const language of readSavedList(languagesKey)) {
+            if (typeof language === "string" && language.trim() &&
+                !languages.some(existing => existing.toLocaleLowerCase() === language.toLocaleLowerCase())) {
+                languages.push(language);
+                languageSelect.add(new Option(language, language));
+            }
+        }
+
+
+        document.querySelector("#addLanguageButton").addEventListener("click", () => {
+            const typedLanguage = languageInput.value.trim();
+            if (!typedLanguage) {
+                languageStatus.textContent = "Type a language name first.";
+                languageInput.focus();
+                return;
+            }
+
+
+            const existingLanguage = languages.find(language =>
+                language.toLocaleLowerCase() === typedLanguage.toLocaleLowerCase()
+            );
+            if (existingLanguage) {
+                languageSelect.value = existingLanguage;
+                languageInput.value = "";
+                languageStatus.textContent = `${existingLanguage} is already in the dropdown and is selected.`;
+                return;
+            }
+
+
+            languages.push(typedLanguage);
+            languageSelect.add(new Option(typedLanguage, typedLanguage));
+            languageSelect.value = typedLanguage;
+            languageInput.value = "";
+            languageStatus.textContent = `${typedLanguage} added to the dropdown and selected.`;
+            if (!saveList(languagesKey, languages)) {
+                languageStatus.textContent += " It will be available until you close this page.";
+            }
+        });
+
+
+        languageInput.addEventListener("keydown", event => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.querySelector("#addLanguageButton").click();
+            }
+        });
+
+
+        entryForm.addEventListener("submit", event => {
+            event.preventDefault();
+
+
+            const language = languageSelect.value;
+            const originalWord = document.querySelector("#originalWord").value.trim();
+            const matchedWord = document.querySelector("#matchedWord").value.trim();
+
+
+            if (!language || !originalWord || !matchedWord) {
+                entryStatus.textContent = "Choose a language and enter both words.";
+                return;
+            }
+
+
+            const newEntry = { language, originalWord, matchedWord };
+            const updatedEntries = [...entries, newEntry];
+            if (!saveList(entriesKey, updatedEntries)) {
+                entryStatus.textContent = "Could not save this pair in this browser. Your entries are still in the form.";
+                return;
+            }
+
+
+            entries = updatedEntries;
+            renderEntries();
+            document.querySelector("#originalWord").value = "";
+            document.querySelector("#matchedWord").value = "";
+            entryStatus.textContent = `Saved: ${newEntry.language} — ${newEntry.originalWord} => ${newEntry.matchedWord}`;
+        });
+
+
+        renderEntries();
+    </script>
+</body>
+</html>
+

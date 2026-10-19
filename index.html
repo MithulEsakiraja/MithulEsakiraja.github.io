@@ -11,8 +11,8 @@
     <link rel="icon" href="https://cmsv2-assets.apptegy.net/uploads/16074/logo/17596/image__30_.png" type="image/png" sizes="any">
 </head>
 <body>
-    <!-- Section 1 -->
-    <section id="section-1">
+    <!-- div 1 -->
+    <div id="div-1">
         <!-- Top Text Content -->
         <div class="body-container">
             <div class="child-container">
@@ -31,13 +31,13 @@
                     <img src="https://blog.flamingtext.com/blog/2026/10/19/flamingtext_com_1792446053_528741081.png" border="0" alt="Logo Design by FlamingText.com" title="Logo Design by FlamingText.com">
                 </div>
                 <div class="button-1">
-                    <button class="translate-button" id="TranslatePage" onclick="goTo('section-2')">Go to Translation Page</button>
+                    <button class="translate-button" id="TranslatePage" onclick="goTo('div-2')">Go to Translation Page</button>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Section 2 -->
-    <section id="section-2">
+    </div>
+    <!-- div 2 -->
+    <div id="div-2">
         <!-- Form Container for Language Inputs (Text) -->
         <form class="form-container">
             <label for="name">Original Language</label>
@@ -45,18 +45,17 @@
             <label for="lang">Language</label>
             <input type="text" id="LangInput" name="language">
             <button type="button" id="submit" onclick="initializeLanguageList()">Submit</button>
-            <button class="translate-button" id="TranslatePage" onclick="goTo('section-3')">Go to Translation Page</button>
         </form>
-    </section>
-    <!-- Section 3 -->
-    <section id="section-3">
+    </div>
+    <!-- div 3 -->
+    <div id="div-3">
         <select name="name" id="lang">
-                <option value="">Name three things ten seconds ago</option>
+            <option value="">Name three things ten seconds ago</option>
         </select>
         <input type="text" id="Word" name="langaa">
         <button type="button" id="submitWord" onclick="addWord1()">Submit</button>
         <ul id="wordList"></ul>
-    </section>
+    </div>
     <!-- JS Link -->
     <script src="script.js"></script>
 </body>

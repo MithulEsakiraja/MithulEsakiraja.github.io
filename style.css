@@ -13,6 +13,21 @@ html, body {
     scroll-padding-top: 60px;
 }
 
+body {
+    background-color: #b58757;
+}
+
+.child-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.cit-logo {
+    transform: translate(1rem 1rem);
+    width: 100%;
+    background-color: #beeef9;
+}
+
 .body-container {
     display: flex;
     justify-content: flex-start;
@@ -28,14 +43,19 @@ html, body {
     justify-content: flex-start;
 }
 
-#TranslatePage {
+.translate-button {
     padding: 5px 10px;
-    border: 2px solid #b58757;
-    color: antiquewhite;
+    background-color: #638947;
+    border: 2px solid #456032;
+    color: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-#TranslatePage:hover {
-    background-color: bisque;
+.translate-button:hover {
+    background-color: #405c2c;
+}
+
+.translate-button:active {
+    transform: scale(0.9);
 }
